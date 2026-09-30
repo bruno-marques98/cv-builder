@@ -17,6 +17,25 @@ body {
   color: var(--foreground);
 }
 
+/* Tailwind v4 resets buttons to the default cursor; restore the pointer
+   so clickable things are obvious on hover. */
+button:not(:disabled),
+[role="button"]:not([aria-disabled="true"]),
+select,
+input[type="range"],
+input[type="color"],
+input[type="checkbox"],
+input[type="radio"],
+label[for],
+summary {
+  cursor: pointer;
+}
+
+button:disabled,
+[role="button"][aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
 @media print {
   @page {
     size: A4;
