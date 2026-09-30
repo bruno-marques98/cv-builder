@@ -167,40 +167,35 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#FAF8F4] relative">
       <header className="border-b border-[#E4E0D8] bg-white sticky top-0 z-10 print:hidden">
-        <div className="mx-auto max-w-[1400px] px-6 py-3 flex items-center justify-between gap-4 flex-wrap">
-          <div className="flex items-center gap-4 flex-wrap">
-            <span
-              className="text-lg font-semibold text-[#1B2430]"
-              style={{ fontFamily: "var(--font-display)" }}
+        <div className="mx-auto max-w-[1400px] px-6 py-3 flex items-center gap-3">
+          <span
+            className="text-lg font-semibold text-[#1B2430] shrink-0"
+            style={{ fontFamily: "var(--font-display)" }}
+          >
+            {t("appName")}
+          </span>
+          <div className="flex rounded-md border border-[#E4E0D8] overflow-hidden shrink-0">
+            <button
+              onClick={() => setTab("cv")}
+              className={`px-3 py-1.5 text-sm font-medium ${
+                tab === "cv" ? "bg-[#1B2430] text-white" : "bg-white text-[#1B2430]"
+              }`}
             >
-              {t("appName")}
-            </span>
-            <div className="flex rounded-md border border-[#E4E0D8] overflow-hidden">
-              <button
-                onClick={() => setTab("cv")}
-                className={`px-3 py-1.5 text-sm font-medium ${
-                  tab === "cv" ? "bg-[#1B2430] text-white" : "bg-white text-[#1B2430]"
-                }`}
-              >
-                {t("tabCV")}
-              </button>
-              <button
-                onClick={() => setTab("cover-letter")}
-                className={`px-3 py-1.5 text-sm font-medium ${
-                  tab === "cover-letter" ? "bg-[#1B2430] text-white" : "bg-white text-[#1B2430]"
-                }`}
-              >
-                {t("tabCoverLetter")}
-              </button>
-            </div>
-            {tab === "cv" && <ProfileBar />}
+              {t("tabCV")}
+            </button>
+            <button
+              onClick={() => setTab("cover-letter")}
+              className={`px-3 py-1.5 text-sm font-medium ${
+                tab === "cover-letter" ? "bg-[#1B2430] text-white" : "bg-white text-[#1B2430]"
+              }`}
+            >
+              {t("tabCoverLetter")}
+            </button>
+          </div>
+          <div className="flex-1" />
+          <div className="flex items-center gap-2 flex-wrap justify-end">
             {tab === "cv" && <UndoRedoButtons />}
             {tab === "cv" && <SnapshotsPopover />}
-            {tab === "cv" && <CompletenessBadge />}
-            {tab === "cv" && <AutoSaveIndicator />}
-          </div>
-          <div className="flex items-center gap-3 flex-wrap">
-            {tab === "cv" && <TemplatePicker />}
             {tab === "cv" && (
               <button
                 onClick={() => setShowCompare(true)}
@@ -235,6 +230,22 @@ export default function Home() {
         </div>
       </header>
 
+      {/* Secondary toolbar: CV profile + template controls (scrolls away). */}
+      {tab === "cv" && (
+        <div className="border-b border-[#E4E0D8] bg-[#FCFBF9] print:hidden">
+          <div className="mx-auto max-w-[1400px] px-6 py-2.5 flex flex-col gap-2.5">
+            <div className="flex items-center justify-between gap-4 flex-wrap">
+              <ProfileBar />
+              <div className="flex items-center gap-3">
+                <AutoSaveIndicator />
+                <CompletenessBadge />
+              </div>
+            </div>
+            <TemplatePicker />
+          </div>
+        </div>
+      )}
+
       {tab === "cv" && <OnboardingChecklist />}
 
       {/* Both tabs stay mounted (just shown/hidden) so their preview refs
@@ -251,14 +262,15 @@ export default function Home() {
           <Editor />
         </section>
 
-        <section className={`${mobilePane === "preview" ? "flex" : "hidden"} lg:flex flex-col gap-4`}>
-          <div className="bg-white border border-[#E4E0D8] rounded-lg p-4 sticky top-[70px] z-[5] print:hidden flex flex-col gap-2">
-            <ExportBar previewRef={previewRef} coverLetterPreviewRef={coverLetterPreviewRef} />
-            <FitToOneButton previewRef={previewRef} />
-          </div>
-          <div className="overflow-auto pb-10 print:overflow-visible print:pb-0">
+        <section className={`${mobilePane === "preview" ? "flex" : "hidden"} lg:flex flex-col-reverse xl:flex-row gap-4 min-w-0`}>
+          <div className="overflow-auto pb-10 min-w-0 flex-1 print:overflow-visible print:pb-0">
             <Preview ref={previewRef} />
           </div>
+          <aside className="xl:w-52 shrink-0 bg-white border border-[#E4E0D8] rounded-lg p-2 xl:sticky xl:top-[70px] xl:self-start print:hidden">
+            <ExportBar previewRef={previewRef} coverLetterPreviewRef={coverLetterPreviewRef} />
+            <div className="h-px bg-[#E4E0D8] my-1" />
+            <FitToOneButton previewRef={previewRef} />
+          </aside>
         </section>
       </main>
 
@@ -273,13 +285,13 @@ export default function Home() {
           <CoverLetterEditor />
         </section>
 
-        <section className={`${mobilePane === "preview" ? "flex" : "hidden"} lg:flex flex-col gap-4`}>
-          <div className="bg-white border border-[#E4E0D8] rounded-lg p-4 sticky top-[70px] z-[5] print:hidden">
-            <CoverLetterExportBar previewRef={coverLetterPreviewRef} />
-          </div>
-          <div className="overflow-auto pb-10 print:overflow-visible print:pb-0">
+        <section className={`${mobilePane === "preview" ? "flex" : "hidden"} lg:flex flex-col-reverse xl:flex-row gap-4 min-w-0`}>
+          <div className="overflow-auto pb-10 min-w-0 flex-1 print:overflow-visible print:pb-0">
             <CoverLetterPreview ref={coverLetterPreviewRef} />
           </div>
+          <aside className="xl:w-52 shrink-0 bg-white border border-[#E4E0D8] rounded-lg p-2 xl:sticky xl:top-[70px] xl:self-start print:hidden">
+            <CoverLetterExportBar previewRef={coverLetterPreviewRef} />
+          </aside>
         </section>
       </main>
 
