@@ -171,27 +171,28 @@ export function Editor() {
           items={cv.skills}
           onReorder={reorderSkills}
           renderItem={(s) => (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-wrap">
               <input
-                className="flex-1 rounded-md border border-[#E4E0D8] px-2.5 py-1.5 text-sm outline-none focus:border-[#3F7368]"
+                className="flex-1 min-w-[110px] rounded-md border border-[#E4E0D8] px-2.5 py-1.5 text-sm outline-none focus:border-[#3F7368]"
                 value={s.name}
                 placeholder={t("skills")}
                 onChange={(e) => updateSkill(s.id, { name: e.target.value })}
               />
               <input
-                className="w-28 rounded-md border border-[#E4E0D8] px-2.5 py-1.5 text-sm outline-none focus:border-[#3F7368]"
+                className="w-24 min-w-0 rounded-md border border-[#E4E0D8] px-2.5 py-1.5 text-sm outline-none focus:border-[#3F7368]"
                 value={s.category}
                 placeholder={t("category")}
                 onChange={(e) => updateSkill(s.id, { category: e.target.value })}
               />
               <input
                 type="range"
+                className="w-16 shrink-0"
                 min={1}
                 max={5}
                 value={s.level}
                 onChange={(e) => updateSkill(s.id, { level: Number(e.target.value) })}
               />
-              <button onClick={() => removeSkill(s.id)} className="text-[#9CA3AF] hover:text-[#B45247] text-xs">
+              <button onClick={() => removeSkill(s.id)} className="shrink-0 text-[#9CA3AF] hover:text-[#B45247] text-xs">
                 {t("remove")}
               </button>
             </div>

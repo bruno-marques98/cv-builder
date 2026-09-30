@@ -32,7 +32,7 @@ export function SnapshotsPopover() {
         Versions {snapshots.length > 0 && `(${snapshots.length})`} ▾
       </button>
       {open && (
-        <div className="absolute right-0 mt-2 w-72 bg-white border border-[#E4E0D8] rounded-lg shadow-lg p-4 z-20 flex flex-col gap-3">
+        <div className="absolute right-0 mt-2 w-80 max-w-[calc(100vw-2rem)] bg-white border border-[#E4E0D8] rounded-lg shadow-lg p-4 z-20 flex flex-col gap-3">
           <p className="text-[10px] text-[#9CA3AF]">
             Save a named snapshot before a big edit, so you can jump back to it later without undoing step by step.
           </p>
@@ -41,7 +41,7 @@ export function SnapshotsPopover() {
               value={name}
               onChange={(e) => setName(e.target.value)}
               placeholder="e.g. Before applying to Google"
-              className="flex-1 text-sm rounded-md border border-[#E4E0D8] px-2.5 py-1.5 outline-none focus:border-[#3F7368]"
+              className="flex-1 min-w-0 text-sm rounded-md border border-[#E4E0D8] px-2.5 py-1.5 outline-none focus:border-[#3F7368]"
             />
             <button
               onClick={() => {
@@ -49,7 +49,7 @@ export function SnapshotsPopover() {
                 saveSnapshot(label);
                 setName("");
               }}
-              className="text-sm text-white bg-[#1B2430] px-3 py-1.5 rounded-md font-medium"
+              className="shrink-0 text-sm text-white bg-[#1B2430] px-3 py-1.5 rounded-md font-medium"
             >
               Save
             </button>

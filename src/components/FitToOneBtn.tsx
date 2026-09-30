@@ -58,17 +58,20 @@ export function FitToOneButton({ previewRef }: { previewRef: React.RefObject<HTM
   }
 
   return (
-    <div className="flex items-center gap-2">
+    <div className="flex flex-col gap-1">
       <button
         onClick={handleClick}
         disabled={busy}
-        className="text-sm text-[#6B7280] hover:text-[#1B2430] px-2 disabled:opacity-50"
+        className="w-full flex items-center gap-2.5 text-left text-sm px-3 py-2 rounded-md text-[#4B5563] hover:bg-[#F1EFEA] hover:text-[#1B2430] disabled:opacity-50"
       >
-        {busy ? "Fitting…" : "Fit to one page"}
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="shrink-0" aria-hidden="true">
+          <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />
+        </svg>
+        <span>{busy ? "Fitting…" : "Fit to one page"}</span>
       </button>
-      {result === "fit" && <span className="text-[10px] text-[#3F7368]">Fits on one page ✓</span>}
+      {result === "fit" && <span className="text-[10px] text-[#3F7368] px-3">Fits on one page ✓</span>}
       {result === "tight" && (
-        <span className="text-[10px] text-[#B45247]">Still runs long even at the most compact setting</span>
+        <span className="text-[10px] text-[#B45247] px-3">Still runs long even at the most compact setting</span>
       )}
     </div>
   );
